@@ -1,10 +1,14 @@
 package hwr.oop;
 
-public interface SerialPort {
+import com.fazecast.jSerialComm.SerialPortDataListener;
 
-    SerialPort getCommPort(String comPort);
+public interface Port {
+
+    int LISTENING_EVENT_DATA_RECEIVED = 0;
 
     void openPort();
 
     void writeBytes(byte[] buffer, int length);
+
+    void addDataListener(SerialPortDataListener listener);
 }

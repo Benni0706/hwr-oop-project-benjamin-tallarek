@@ -8,15 +8,16 @@ import java.nio.charset.StandardCharsets;
 
 public class MotionSensor implements Sensor {
 
-    private SerialPort comPort;
+    private Port comPort;
 
-    public MotionSensor(){
-        this(SerialPort.getCommPort("COM5"));
-    }
-
-    public MotionSensor(SerialPort comPort){
+    public MotionSensor(Port comPort){
         this.comPort = comPort;
         this.comPort.openPort();
+        startListening();
+    }
+
+    public MotionSensor(){
+        this.comPort = new SerialPortAdapter(SerialPort.getCommPort("COM5"));
         startListening();
     }
 
@@ -26,7 +27,7 @@ public class MotionSensor implements Sensor {
 
             @Override
             public int getListeningEvents() {
-                return SerialPort.LISTENING_EVENT_DATA_RECEIVED;
+                return Port.LISTENING_EVENT_DATA_RECEIVED;
             }
 
             @Override
@@ -42,9 +43,7 @@ public class MotionSensor implements Sensor {
     @Override
     public void sendString(String data){
         byte[] buffer = new byte[data.length()];
-        for(int i = 0; i < data.length() - 1; i++){
-            buffer[i] = Byte.parseByte(data.substring(i, i + 1));
-        }
+        buffer = data.getBytes();
         comPort.writeBytes(buffer, buffer.length);
     }
 

@@ -1,27 +1,28 @@
 package hwr.oop;
 
 import com.fazecast.jSerialComm.SerialPort;
+import com.fazecast.jSerialComm.SerialPortDataListener;
 
-public class PortAdapter implements Port {
+public class SerialPortAdapter implements Port {
 
     private SerialPort serialPort;
 
-    public PortAdapter(SerialPort serialPort){
+    public SerialPortAdapter(SerialPort serialPort){
         this.serialPort = serialPort;
     }
 
     @Override
-    public Port getCommPort(String comPortDescription) {
-        return port.getCommPort(comPortDescription);
-    }
-
-    @Override
     public void openPort() {
-        port.openPort();
+        serialPort.openPort();
     }
 
     @Override
     public void writeBytes(byte[] buffer, int length) {
-        port.writeBytes(buffer, length);
+        serialPort.writeBytes(buffer, length);
+    }
+
+    @Override
+    public void addDataListener(SerialPortDataListener listener) {
+        serialPort.addDataListener(listener);
     }
 }

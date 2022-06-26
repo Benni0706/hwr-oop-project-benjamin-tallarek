@@ -11,7 +11,10 @@ public class Monitoring{
     }
 
     public static void main(String[] args) throws IOException {
-        Sensor sensor = new SensorSim();
+        Sensor sensor = new MotionSensor(new SimulatedPort());
+        //Sensor sensor = new MotionSensor(new SerialPortAdapter(SerialPort.getCommPort("COM5")));
         Monitoring monitoring = new Monitoring(sensor);
+        sensor.activateSensor();
+        sensor.deactivateSensor();
     }
 }
