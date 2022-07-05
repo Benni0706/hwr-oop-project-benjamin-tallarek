@@ -1,5 +1,7 @@
 package hwr.oop.alarmSystem;
 
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.PrintStream;
 import java.util.Scanner;
 
@@ -7,16 +9,20 @@ class Monitoring implements SensorObserver{
 
     private Sensor sensor;
     private String message;
-    Scanner in;
-    PrintStream out;
+    private Scanner in;
+    private PrintStream out;
 
-    Monitoring(Sensor sensor){
+    Monitoring(Sensor sensor, InputStream in, OutputStream out){
         this.sensor = sensor;
-        in = new Scanner(System.in);
-        out = new PrintStream(System.out);
+        this.in = new Scanner(in);
+        this.out = new PrintStream(out);
     }
 
-    public String getMessage() {
+    Monitoring(Sensor sensor){
+        this(sensor, System.in, System.out);
+    }
+
+    String getMessage() {
         return message;
     }
 
@@ -24,31 +30,28 @@ class Monitoring implements SensorObserver{
     public void update(String message) {
         this.message = message;
         if(message == "motion detected"){
-            out.println("The Sensor detected motion at: " + java.time.LocalDateTime.now() );
+            out.print("The Sensor detected motion at\n");
         }else{
             out.println("Message from sensor: " + message);
         }
     }
 
-    public void startMonitoring() {
+    boolean checkInput(){
         String input;
-        out.println("started monitoring");
-        out.println("available commands: 'activate', 'deactivate', 'exit'");
-        while(true){
-            if(in.hasNextLine()){
-                input = in.next();
-                if(input.equals("activate")){
-                    sensor.activateSensor();
-                    out.println("activated the sensor");
-                }else if(input.equals("deactivate")){
-                    sensor.deactivateSensor();
-                    out.println("deactivated the sensor");
-                }else if(input.equals("exit")){
-                    return;
-                }else{
-                    out.println("unknown command");
-                }
+        if(in.hasNextLine()){
+            input = in.next();
+            if(input.equals("activate")){
+                sensor.activateSensor();
+                out.print("activated the sensor\n");
+            }else if(input.equals("deactivate")){
+                sensor.deactivateSensor();
+                out.print("deactivated the sensor\n");
+            }else if(input.equals("exit")){
+                out.print("exiting");
+                return false;
+            }else{
+                out.print("unknown command\navailable commands: 'activate', 'deactivate', 'exit'\n");
             }
-        }
+        }return true;
     }
 }
