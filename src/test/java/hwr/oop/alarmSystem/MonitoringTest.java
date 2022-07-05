@@ -45,4 +45,5 @@ public class MonitoringTest {
         simPort.setMessage("motion detected");
         Assertions.assertThat(monitoring.getMessage()).isEqualTo("motion detected");
     }
+
 }
