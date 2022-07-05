@@ -69,7 +69,7 @@ public class ConsoleTest {
     void update_message_testOutput(){
         setup("");
         monitoring.update("test123");
-        Assertions.assertThat(out.toString()).isEqualTo("Message from sensor: test123");
+        Assertions.assertThat(out.toString()).isEqualTo("Message from sensor: test123\n");
     }
 
     private InputStream createInputStreamForInput(String input) {

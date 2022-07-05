@@ -32,7 +32,7 @@ class Monitoring implements SensorObserver{
         if(message == "motion detected"){
             out.print("The Sensor detected motion at\n");
         }else{
-            out.println("Message from sensor: " + message);
+            out.print("Message from sensor: " + message + "\n");
         }
     }
 
