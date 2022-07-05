@@ -6,8 +6,8 @@ import org.junit.jupiter.api.Test;
 
 public class MonitoringTest {
 
-    Sensor sensor;
     SimulatedSerialPort simPort;
+    Sensor sensor;
     Monitoring monitoring;
 
     @BeforeEach
@@ -45,4 +45,5 @@ public class MonitoringTest {
         simPort.setMessage("motion detected");
         Assertions.assertThat(monitoring.getMessage()).isEqualTo("motion detected");
     }
+
 }
