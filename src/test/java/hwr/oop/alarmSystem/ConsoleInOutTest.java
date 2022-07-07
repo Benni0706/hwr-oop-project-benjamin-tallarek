@@ -8,7 +8,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-public class ConsoleTest {
+public class ConsoleInOutTest {
 
     SimulatedSerialPort simPort;
     Sensor sensor;
@@ -16,60 +16,72 @@ public class ConsoleTest {
     InputStream in;
     OutputStream out;
 
-    private void setup(String input){
+    private void setupWithInput(String input){
         simPort = new SimulatedSerialPort();
         sensor = new MotionSensor(simPort);
         in = createInputStreamForInput(input);
         out = new ByteArrayOutputStream();
         monitoring = new Monitoring(sensor, in, out);
+        sensor.attach(monitoring);
+        simPort.attach((PortObserver) sensor);
+    }
+
+    private void setupWithoutInput(){
+        simPort = new SimulatedSerialPort();
+        sensor = new MotionSensor(simPort);
+        out = new ByteArrayOutputStream();
+        monitoring = new Monitoring(sensor, System.in, out);
+        sensor.attach(monitoring);
+        simPort.attach((PortObserver) sensor);
+    }
+
+    @Test
+    void console_startListening_testOutput(){
+        setupWithoutInput();
+        sensor.startListening();
+        Assertions.assertThat(out.toString()).isEqualTo("startedListening\n");
     }
 
     @Test
     void console_inputActivate_testOutput(){
-        setup("activate");
+        setupWithInput("activateSensor");
         monitoring.checkInput();
-        Assertions.assertThat(out.toString()).isEqualTo("activated the sensor\n");
+        Assertions.assertThat(out.toString()).isEqualTo("sensorActivated\n");
     }
 
     @Test
     void console_inputDeactivate_testOutput(){
-        setup("deactivate");
+        setupWithInput("deactivateSensor");
         monitoring.checkInput();
-        Assertions.assertThat(out.toString()).isEqualTo("deactivated the sensor\n");
+        Assertions.assertThat(out.toString()).isEqualTo("sensorDeactivated\n");
     }
 
     @Test
     void console_inputUnknownCommand_testOutput(){
-        setup("test123");
+        setupWithInput("test123");
         monitoring.checkInput();
         Assertions.assertThat(out.toString()).isEqualTo("unknown command\navailable commands: 'activate', 'deactivate', 'exit'\n");
     }
 
     @Test
     void console_InputExit_testOutput(){
-        setup("exit");
+        setupWithInput("exit");
         monitoring.checkInput();
         Assertions.assertThat(out.toString()).isEqualTo("exiting");
     }
 
     @Test
-    void console_NoInput_test(){
-        setup("");
-        Assertions.assertThat(monitoring.checkInput() == true);
-    }
-
-    @Test
     void update_motionDetected_testOutput(){
-        setup("");
-        monitoring.update("motion detected");
-        Assertions.assertThat(out.toString()).isEqualTo("The Sensor detected motion at\n");
+        setupWithoutInput();
+        monitoring.update("motionDetected");
+        Assertions.assertThat(out.toString()).isEqualTo("motionDetected\n");
     }
 
     @Test
     void update_message_testOutput(){
-        setup("");
+        setupWithInput("");
         monitoring.update("test123");
-        Assertions.assertThat(out.toString()).isEqualTo("Message from sensor: test123\n");
+        Assertions.assertThat(out.toString()).isEqualTo("test123\n");
     }
 
     private InputStream createInputStreamForInput(String input) {

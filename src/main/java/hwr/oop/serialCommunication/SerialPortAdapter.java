@@ -14,28 +14,13 @@ public class SerialPortAdapter implements SerialPort {
     private List<PortObserver> observer = new ArrayList<>();
     private com.fazecast.jSerialComm.SerialPort serialPort;
 
-    public SerialPortAdapter(com.fazecast.jSerialComm.SerialPort serialPort){
+    public SerialPortAdapter(com.fazecast.jSerialComm.SerialPort serialPort) {
         this.serialPort = serialPort;
     }
 
     @Override
     public List<PortObserver> getObserver() {
         return observer;
-    }
-
-    @Override
-    public boolean isActivated() {
-        return false; //TODO
-    }
-
-    @Override
-    public boolean isPortOpen() {
-        return false; //TODO
-    }
-
-    @Override
-    public boolean isListening() {
-        return false; //TODO
     }
 
     @Override

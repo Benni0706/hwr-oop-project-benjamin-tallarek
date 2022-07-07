@@ -4,7 +4,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MotionSensor implements Sensor, PortObserver {
+class MotionSensor implements Sensor, PortObserver {
 
     private List<SensorObserver> observer = new ArrayList<>();
     private SerialPort serialPort;
@@ -33,12 +33,12 @@ public class MotionSensor implements Sensor, PortObserver {
 
     @Override
     public void activateSensor() {
-        sendString("activate");
+        sendString("activateSensor");
     }
 
     @Override
     public void deactivateSensor() {
-        sendString("deactivate");
+        sendString("deactivateSensor");
     }
 
     @Override

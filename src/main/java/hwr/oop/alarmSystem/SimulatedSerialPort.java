@@ -4,17 +4,8 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SimulatedSerialPort implements SerialPort {
+class SimulatedSerialPort implements SerialPort {
     private List<PortObserver> observer = new ArrayList<>();
-    private boolean portOpen;
-    private boolean activated;
-    private boolean listening;
-
-    SimulatedSerialPort(){
-        portOpen = false;
-        activated = false;
-        listening = false;
-    }
 
     @Override
     public List<PortObserver> getObserver() {
@@ -22,38 +13,23 @@ public class SimulatedSerialPort implements SerialPort {
     }
 
     @Override
-    public boolean isActivated() {
-        return activated;
-    }
-
-    @Override
-    public boolean isPortOpen() {
-        return portOpen;
-    }
-
-    @Override
-    public boolean isListening() {
-        return listening;
-    }
-
-    @Override
     public void openPort() {
-        portOpen = true;
+        setMessage("portIsOpen");
     }
 
     @Override
     public void writeBytes(byte[] buffer, int length) {
         String input = new String(buffer, StandardCharsets.UTF_8);
-        if(input.equals("activate")){
-            activated = true;
-        }else if(input.equals("deactivate")){
-            activated = false;
+        if(input.equals("activateSensor")){
+            setMessage("sensorActivated");
+        }else if(input.equals("deactivateSensor")){
+            setMessage("sensorDeactivated");
         }
     }
 
     @Override
     public void startListening() {
-        listening = true;
+        setMessage("startedListening");
     }
 
     @Override

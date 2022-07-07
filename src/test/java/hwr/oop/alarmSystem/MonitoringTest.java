@@ -30,7 +30,7 @@ public class MonitoringTest {
         Assertions.assertThat(sensor.getObserver()).doesNotContain(monitoring);
     }
 
-    @Test
+    /*@Test
     void monitoringGetsMessage_fromSimulatedSerialPort_overMotionSensor(){
         simPort.attach((PortObserver) sensor);
         sensor.attach(monitoring);
@@ -44,6 +44,6 @@ public class MonitoringTest {
         sensor.attach(monitoring);
         simPort.setMessage("motion detected");
         Assertions.assertThat(monitoring.getMessage()).isEqualTo("motion detected");
-    }
+    }*/
 
 }
