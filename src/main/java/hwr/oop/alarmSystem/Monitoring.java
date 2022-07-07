@@ -8,7 +8,6 @@ import java.util.Scanner;
 class Monitoring implements SensorObserver{
 
     private Sensor sensor;
-    private String message;
     private Scanner in;
     private PrintStream out;
 
@@ -22,30 +21,19 @@ class Monitoring implements SensorObserver{
         this(sensor, System.in, System.out);
     }
 
-    String getMessage() {
-        return message;
-    }
-
     @Override
     public void update(String message) {
-        this.message = message;
-        if(message == "motion detected"){
-            out.print("The Sensor detected motion at\n");
-        }else{
-            out.print("Message from sensor: " + message + "\n");
-        }
+        out.print(message + "\n");
     }
 
     boolean checkInput(){
         String input;
         if(in.hasNextLine()){
             input = in.next();
-            if(input.equals("activate")){
+            if(input.equals("activateSensor")){
                 sensor.activateSensor();
-                out.print("activated the sensor\n");
-            }else if(input.equals("deactivate")){
+            }else if(input.equals("deactivateSensor")){
                 sensor.deactivateSensor();
-                out.print("deactivated the sensor\n");
             }else if(input.equals("exit")){
                 out.print("exiting");
                 return false;

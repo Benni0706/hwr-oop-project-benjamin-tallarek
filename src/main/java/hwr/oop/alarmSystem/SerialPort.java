@@ -5,9 +5,6 @@ import java.util.List;
 public interface SerialPort {
 
     List<PortObserver> getObserver();
-    boolean isActivated();
-    boolean isPortOpen();
-    boolean isListening();
     void openPort();
     void writeBytes(byte[] buffer, int length);
     void startListening();

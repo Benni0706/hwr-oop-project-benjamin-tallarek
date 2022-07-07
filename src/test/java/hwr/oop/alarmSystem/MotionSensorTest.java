@@ -15,30 +15,6 @@ public class MotionSensorTest {
     }
 
     @Test
-    void motionSensor_constructor_portIsOpen(){
-        Assertions.assertThat(simPort.isPortOpen()).isEqualTo(true);
-    }
-
-    @Test
-    void startListening_isListening(){
-        sensor.startListening();
-        Assertions.assertThat(simPort.isListening()).isEqualTo(true);
-    }
-
-    @Test
-    void sendString_activate_isActivated(){
-        sensor.activateSensor();
-        Assertions.assertThat(simPort.isActivated()).isEqualTo(true);
-    }
-
-    @Test
-    void writeBytes_deactivate_isDeactivated(){
-        sensor.activateSensor();
-        sensor.deactivateSensor();
-        Assertions.assertThat(simPort.isActivated()).isEqualTo(false);
-    }
-
-    @Test
     void attach_MotionSensorObserver_to_SimulatedSerialPortObservable(){
         simPort.attach((PortObserver) sensor);
         Assertions.assertThat(simPort.getObserver()).contains((PortObserver) sensor);
