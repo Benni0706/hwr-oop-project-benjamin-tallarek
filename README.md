@@ -18,9 +18,6 @@ The biggest difficulty was to make the code that controls the serial interface t
 | 1      | activating the sensor| /     |
 | 2      | deactivating the sensor| /     |
 | 3      | listening for motion detections| /     |
-| 4      | /       | /     |
-| 5      | /       | /     |
-
 
 ## Additional Dependencies
 
@@ -28,4 +25,5 @@ The biggest difficulty was to make the code that controls the serial interface t
 
 | Number | Dependency Name | Dependency Description | Why is it necessary? |
 |--------|-----------------|------------------------|----------------------|
-| 1      | /               | /                      | /                    |
+| 1      | jSerialComm-2.9.1| Communication via serial interface| communication with arduino|
+
