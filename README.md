@@ -1,4 +1,4 @@
-# HWR OOP Lecture Project arduino motion sensor
+# HWR OOP Lecture Project Arduino motion sensor
 
 This repository contains a student project created for an ongoing lecture on object-oriented programming with Java at HWR Berlin (summer term 2022).
 
@@ -7,11 +7,10 @@ This repository contains a student project created for an ongoing lecture on obj
 ## Abstract
 
 This programme controls a motion detector that is controlled via an Arduino. Communication is message-based via the serial interface.
+The programme is controlled by commands that are entered into the console.
 The biggest difficulty was to make the code that controls the serial interface testable.
 
 ## Feature List
-
-[TODO]: # (For each feature implemented, add a row to the table!)
 
 | Number | Feature | Tests |
 |--------|---------|-------|
@@ -21,9 +20,7 @@ The biggest difficulty was to make the code that controls the serial interface t
 
 ## Additional Dependencies
 
-[TODO]: # (For each additional dependency your project requires- Add an additional row to the table!)
-
 | Number | Dependency Name | Dependency Description | Why is it necessary? |
 |--------|-----------------|------------------------|----------------------|
-| 1      | jSerialComm-2.9.1| Communication via serial interface| communication with arduino|
+| 1      | jSerialComm-2.9.1| Communication via serial interface| communication with Arduino|
 
